@@ -80,7 +80,7 @@ fun eval3(e: Expr): Int =
         is Num ->
             e.value
         is Sum ->
-            eval2(e.right) + eval2(e.left)
+            eval3(e.right) + eval3(e.left)
         else ->
             throw IllegalArgumentException("Unknown expression")
     }
