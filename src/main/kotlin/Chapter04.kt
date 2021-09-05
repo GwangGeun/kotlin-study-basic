@@ -1,3 +1,5 @@
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -147,22 +149,95 @@ class Compares(val valueA: String)
 /**
  * Data Class
  * - equals, hashcode, toString 을 override
- * - copy method 포함
+ * - copy method 포함 ( deep copy )
  * - cf) equals, hashcode 는 주생성자에 나열된 모든 프로퍼티를 고려해 만들어진다.
  */
 data class Client(val name:String, val postalCode:Int)
 
-fun main() {
+/**
+ * 클래스 위임 : by keyword 사용
+ * - decorator pattern : https://dailyheumsi.tistory.com/198, https://codechacha.com/ko/kotlin-deligation-using-by/
+ */
+// 1. 기존 delegation class
+class DelegatingCollection<T> : Collection<T>{
+    private val innerList = arrayListOf<T>()
+    override val size: Int
+        get() = innerList.size
+    override fun isEmpty(): Boolean = innerList.isEmpty()
+    override fun contains(element: T): Boolean = innerList.contains(element)
+    override fun iterator(): Iterator<T> = innerList.iterator()
+    override fun containsAll(elements: Collection<T>): Boolean = innerList.containsAll(elements)
+}
 
+// 2. by keyword 사용
+class DelegatingCollection02<T>(
+    innerList: Collection<T> = ArrayList<T>()
+) : Collection<T> by innerList{}
+
+/**
+ * [ object keyword ]
+ * 1. object declaration
+ *    - singleton 생성이 목적
+ *    - 객체 선언 안에도 프로퍼티, 메소드, 초기화 블록등이 들어갈 수 있다. 하지만, 생성자는(부생성자 포함) 객체 선언에 쓸 수 없다.
+ *
+ * 2. companion object
+ *    - 주로 factory method pattern 구현을 위해 사용
+ *    - 참고로 클래스 밖에 있는 최상위 함수는 비공개 멤버를 사용할 수 없다. ( 즉, 최상위 함수로 해결이 불가하기에 companion object 를 사용 )
+ *
+ * 3. anonymous object
+ *    - (무명 객체) 를 정의할 때도 object keyword 사용
+ *    - 한 인터페이스만 구현하거나 한 클래스만 확장할 수 있는 자바의 무명 내부 클래스와 달리 코틀린 무명 클래스는 여러 인터페이스를 구현하거나 확장하면서 인터페이스를 구현할 수 있다.
+ *    - 무명객체는 싱글톤이 아니다 객체 식이 쓰일 때 마다 새로운 인스턴스가 생성된다.
+ *    - 자바와 달리 final 이 아닌 변수도 객체 식 안에서 사용할 수 있다.
+ *
+ */
+// 1. object
+object Payroll{
+    val allEmployees = arrayListOf<String>()
+}
+
+// 2-(1) companion object 기본
+class UserFactory private constructor(val nickname: String){
+    // companion object Loader 처럼 companion object 에 이름을 붙일 수도 있음 & interface 구현도 가능
+    companion object{
+        fun newSubscribingUser(email: String) = UserFactory(email.substringBefore('@'))
+        fun newSubscribingUser02(email: String) = UserFactory(email.substringBefore('@'))
+        fun newSubscribingUser03(email: String) = UserFactory(email.substringBefore('@'))
+    }
+}
+
+// 2-(2) companion object extension function
+class PersonEx(val firstName:String, val lastName:String){
+    companion object{}
+}
+// companion object 에 대한 확장함수를 선언하기 위해서는 companion object{} 가 선언되어 있어야 한다.
+fun PersonEx.Companion.fromJSON(json:String):PersonEx{
+    return PersonEx("a","b")
+}
+
+// 3. anonymous object
+val anonymousObj= object : MouseAdapter(){
+    override fun mouseClicked(e: MouseEvent?) {
+        super.mouseClicked(e)
+    }
+
+    override fun mouseEntered(e: MouseEvent?) {
+        super.mouseEntered(e)
+    }
+}
+
+
+fun main() {
 
 //    val userB = UserB("AAA")
 //    userB.address = "대한민국 서울 어딘가"
 //    println("hello result : " + userB.address)
 
+//====== factory fun call ======//
+//    val subUser = UserFactory.newSubscribingUser("abc@gmail.com")
+//    println(subUser.nickname)
 
-    val obj01 = Compares("a")
-    val obj02 = Compares("a")
-
-    println(obj01 == obj02)
+//====== companion object fun call ======//
+//    PersonEx.fromJSON()
 
 }
