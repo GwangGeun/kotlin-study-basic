@@ -15,7 +15,7 @@ fun maxExpression(a: Int, b: Int): Int = if (a > b) a else b
 /**
  * 2. Property (필드,getter,setter) : kotlin 에서 property 를 선언하는 방식은 property 와 관련 있는 접근자(var,val)를 선언하는 것이다.
  */
-class Person01(val name: String, var age: Int)
+data class Person01(val name: String, var age: Int)
 
 // 직접 custom getter, setter 를 만드는 방법
 class Person02(name: String, age: Int) {
