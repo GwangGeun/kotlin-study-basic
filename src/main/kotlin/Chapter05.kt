@@ -67,15 +67,15 @@ val books = listOf(
 
 
 // sequence
-// - java 의 stream 과 같은 기능이라고 보면 됨 ( 단, stream 처럼 parellel 하게 실행은 불가 )
+// - java 의 stream 과 같은 기능이라고 보면 됨 ( 단, stream 처럼 parallel 하게 실행은 불가 )
 // - sequence 를 사용하지 않으면 중간연산 결과과 collection 으로 만들어지는 비효율성이 발생
 // - asSequence() or generateSequence()
 
 //  자바의 functional interface 호출
-//  - 코틀린에서 자바의 functional interface를 호출시 람다식으로 바로 표현할 수 있다.
+//  - 코틀린에서 자바의 functional interface 호출시 람다식으로 바로 표현할 수 있다.
 //  - 내부적으로 람다식은 익명클래스로 치환된다.
-//  - lambda capturing이 발생하지 않는다면, 익명클래스는 한번만 생성되어 재사용된다.
-//  - lambda capturing이 발생하면, 익명클래스는 매번 생성되어 사용된다.
+//  - lambda capturing 발생하지 않는다면, 익명클래스는 한번만 생성되어 재사용된다.
+//  - lambda capturing 발생하면, 익명클래스는 매번 생성되어 사용된다.
 
 //  SAM 생성자
 //  - SAM 생성자는 컴파일러가 람다식을 자바의 functional interface로 자동으로 변환하는 함수
