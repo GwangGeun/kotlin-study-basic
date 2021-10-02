@@ -60,7 +60,7 @@ internal open class TalkativeButton : Focusable {
  * sealed Class
  * - when 식에서 sealed 클래스의 모든 하위 클래스를 처리한다면 디폴트 분기가 필요 없다.
  * - sealed class 는 open 이 default
- * - sealed interface 는 없다
+ * - sealed interface 는 없었지만 생긴듯..
  */
 sealed class SealedExpr {
     class SealedNum(val value: Int) : SealedExpr()
@@ -81,6 +81,7 @@ open class View {
     constructor(str: String) {}
     constructor(str: String, age: Int) {}
 }
+
 
 class MyButton : View {
     constructor(str: String) : super(str)
@@ -210,6 +211,7 @@ class UserFactory private constructor(val nickname: String){
 class PersonEx(val firstName:String, val lastName:String){
     companion object{}
 }
+
 // companion object 에 대한 확장함수를 선언하기 위해서는 companion object{} 가 선언되어 있어야 한다.
 fun PersonEx.Companion.fromJSON(json:String):PersonEx{
     return PersonEx("a","b")

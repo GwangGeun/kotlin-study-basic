@@ -4,10 +4,12 @@ object Test{
     }
 }
 
-data class Test02(val acc:String){
+data class Test02(val aaa:String, var s:Int){
     var ddd = "1"
+
     fun test02(){
-        println("hello $ddd")
+        println("hello $aaa")
+        s = 3
     }
 }
 
@@ -24,8 +26,10 @@ class Test03{
 }
 
 
-
 fun main(args: Array<String>) {
+
+    Test02("a2",2)
+
 
 //    Test.test01();
 //    Test02().test02();
