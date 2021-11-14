@@ -129,7 +129,7 @@ fun main() {
     // ==== all,any,count,find ==== //
     // all : 모든 술어(predicate)가 이 조건을 만족하는지 체크
 //    println(testVal.all(canBeInClub27))
-//    // any : 술어를 만족하는 원소가 하나라ㅗㄷ 있는지 궁금하면 any
+//    // any : 술어를 만족하는 원소가 하나라도 있는지 궁금하면 any
 //    println(testVal.any(canBeInClub27))
 //    // count : 술어를 만족하는 원소의 갯수
 //    println(testVal.count(canBeInClub27))

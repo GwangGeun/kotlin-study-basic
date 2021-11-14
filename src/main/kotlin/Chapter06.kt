@@ -38,8 +38,10 @@ fun printShippingLabel(person:Persons01){
 
 /**
  * safe cast (as?)
+ * : 타입 캐스트 연산자는 값을 주어진 타입으로 변환하려 시도하고 타입이 맞지 않으면 null 을 반환한다
  */
 class SafeCastPerson(val firstName:String, val lastName:String){
+
     override fun equals(other: Any?): Boolean {
         // 타입이 서로 일치하지 않으면 false 를 반환한다
         val otherPerson = other as? Person01 ?: return false
@@ -112,7 +114,6 @@ fun verifyUserInput(input:String?){
 }
 
 // verifyUserInput(null) -> 아무런 예외가 발생하지 않는다.
-
 
 // java 에서는 메소드 안의 this는 그 메소드가 호출된 수신 객체를 가리키므로 항상 null이 아니다.
 // kotlin 에서는 널이 될 수 있는 타입의 확장 함수 안에서는 this가 null이 될 수 있다는 점이 자바와 다르다.

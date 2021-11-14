@@ -26,9 +26,11 @@ class Test03{
 }
 
 
+
+
 fun main(args: Array<String>) {
 
-    Test02("a2",2)
+//    Test02("a2",2)
 
 
 //    Test.test01();

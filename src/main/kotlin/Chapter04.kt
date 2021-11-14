@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap
  * 이하 Class & Interface
  *
  * 1. 한 클래스에서 showOff 라는 동일 method 가 있는 interface 를 동시에 implements 한다면 (?)
- *    : 구현체에서 showOFf 의 명시적인 구현을 제공해야 한다.
+ *    : 구현체에서 showOff 의 명시적인 구현을 제공해야 한다.
  */
 interface Clickable {
     fun click()
@@ -57,7 +57,7 @@ internal open class TalkativeButton : Focusable {
 
 
 /**
- * sealed Class
+ * sealed class
  * - when 식에서 sealed 클래스의 모든 하위 클래스를 처리한다면 디폴트 분기가 필요 없다.
  * - sealed class 는 open 이 default
  * - sealed interface 는 없었지만 생긴듯..
@@ -76,6 +76,7 @@ fun evalFun(e: SealedExpr): Int =
 /**
  * constructor
  * - Class 에 primary constructor 이 없다면 모든 secondary constructor 는 상위 클래스를 초기화 하거나 다른 생성자에게 생성을 위임해야 한다.
+ * - 각 부 생성자에서 객체 생성을 위임하는 화살표를 따라가면 그 끝에는 상위 클래스 생성자를 호출하는 화살표가 있어야 한다.
  */
 open class View {
     constructor(str: String) {}
