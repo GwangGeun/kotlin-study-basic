@@ -78,7 +78,7 @@ val books = listOf(
 //  - lambda capturing 발생하면, 익명클래스는 매번 생성되어 사용된다.
 
 //  SAM 생성자
-//  - SAM 생성자는 컴파일러가 람다식을 자바의 functional interface로 자동으로 변환하는 함수
+//  - SAM 생성자는 컴파일러가 람다식을 자바의 functional interface 로 자동으로 변환하는 함수
 //  - 컴파일러가 자동으로 변환을 못하는경우에는 직접 SAM 생성자를 사용하여 코드를 작성 할 수도 있다.
 fun createAllDoneRunnable(): Runnable {
     return Runnable { println("All done!") }
@@ -87,7 +87,9 @@ fun createAllDoneRunnable(): Runnable {
 // 위와 동일
 fun createAllDoneRunnable02(): Runnable {
     return object : Runnable {
-        override fun run() { println("All done!") }
+        override fun run() {
+            println("All done!")
+        }
     }
 }
 
@@ -110,7 +112,7 @@ class OuterClass {
 // - with 과의 유일한 차이 : 항상 자신에게 전달된 객체를 반환한다.
 // - 주로 builder pattern 의 목적으로 사용
 fun alphabet() = StringBuilder().apply {
-    for(letter in 'A'..'Z'){
+    for (letter in 'A'..'Z') {
         this.append(letter)
     }
     append("\nNow I know the alphabet!")
@@ -154,5 +156,5 @@ fun main() {
 //    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
 //    println(numbersTo100.sum())
 
-
 }
+

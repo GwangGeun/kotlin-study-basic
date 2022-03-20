@@ -1,7 +1,6 @@
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * 이하 Class & Interface
@@ -98,13 +97,13 @@ class MyButton : View {
  */
 interface UserIf {
     val nickname: String
-    val subName:String
+    val subName: String
         get() = nickname.substringBefore("_")
 }
 
 class PrivateUserIf(override val nickname: String) : UserIf
-class SubscribingUserIf(private val email:String) : UserIf{
-//     1.매번 이메일 주소를 계산 중.
+class SubscribingUserIf(private val email: String) : UserIf {
+    //     1.매번 이메일 주소를 계산 중.
     override val nickname: String
         get() = email.substringBefore('@')
 
@@ -116,24 +115,27 @@ class SubscribingUserIf(private val email:String) : UserIf{
 //    }
 }
 
-class UserB(val name: String){
-    var address:String = "unspecified"
-    set(value:String){
-        println("""Address was changed for $name:
+class UserB(val name: String) {
+    var address: String = "unspecified"
+        set(value: String) {
+            println(
+                """Address was changed for $name:
             "$field" -> "$value".
-        """.trimMargin())
-        field = value
-    }
+        """.trimMargin()
+            )
+            field = value
+        }
 }
 
 /**
  * 접근자의 가시성 변경
  * ex) set 에 private 을 부여
  */
-class LengthCounter{
+class LengthCounter {
     var counter: Int = 0
         private set
-    fun addWord(word:String){
+
+    fun addWord(word: String) {
         counter += word.length
     }
 }
@@ -154,17 +156,18 @@ class Compares(val valueA: String)
  * - copy method 포함 ( deep copy )
  * - cf) equals, hashcode 는 주생성자에 나열된 모든 프로퍼티를 고려해 만들어진다.
  */
-data class Client(val name:String, val postalCode:Int)
+data class Client(val name: String, val postalCode: Int)
 
 /**
  * 클래스 위임 : by keyword 사용
  * - decorator pattern : https://dailyheumsi.tistory.com/198, https://codechacha.com/ko/kotlin-deligation-using-by/
  */
 // 1. 기존 delegation class
-class DelegatingCollection<T> : Collection<T>{
+class DelegatingCollection<T> : Collection<T> {
     private val innerList = arrayListOf<T>()
     override val size: Int
         get() = innerList.size
+
     override fun isEmpty(): Boolean = innerList.isEmpty()
     override fun contains(element: T): Boolean = innerList.contains(element)
     override fun iterator(): Iterator<T> = innerList.iterator()
@@ -174,7 +177,7 @@ class DelegatingCollection<T> : Collection<T>{
 // 2. by keyword 사용
 class DelegatingCollection02<T>(
     innerList: Collection<T> = ArrayList<T>()
-) : Collection<T> by innerList{}
+) : Collection<T> by innerList {}
 
 /**
  * [ object keyword ]
@@ -194,14 +197,14 @@ class DelegatingCollection02<T>(
  *
  */
 // 1. object
-object Payroll{
+object Payroll {
     val allEmployees = arrayListOf<String>()
 }
 
 // 2-(1) companion object 기본
-class UserFactory private constructor(val nickname: String){
+class UserFactory private constructor(val nickname: String) {
     // companion object Loader 처럼 companion object 에 이름을 붙일 수도 있음 & interface 구현도 가능
-    companion object{
+    companion object {
         fun newSubscribingUser(email: String) = UserFactory(email.substringBefore('@'))
         fun newSubscribingUser02(email: String) = UserFactory(email.substringBefore('@'))
         fun newSubscribingUser03(email: String) = UserFactory(email.substringBefore('@'))
@@ -209,17 +212,17 @@ class UserFactory private constructor(val nickname: String){
 }
 
 // 2-(2) companion object extension function
-class PersonEx(val firstName:String, val lastName:String){
-    companion object{}
+class PersonEx(val firstName: String, val lastName: String) {
+    companion object {}
 }
 
 // companion object 에 대한 확장함수를 선언하기 위해서는 companion object{} 가 선언되어 있어야 한다.
-fun PersonEx.Companion.fromJSON(json:String):PersonEx{
-    return PersonEx("a","b")
+fun PersonEx.Companion.fromJSON(json: String): PersonEx {
+    return PersonEx("a", "b")
 }
 
 // 3. anonymous object
-val anonymousObj= object : MouseAdapter(){
+val anonymousObj = object : MouseAdapter() {
     override fun mouseClicked(e: MouseEvent?) {
         super.mouseClicked(e)
     }
@@ -228,7 +231,6 @@ val anonymousObj= object : MouseAdapter(){
         super.mouseEntered(e)
     }
 }
-
 
 fun main() {
 

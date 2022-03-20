@@ -37,10 +37,10 @@ fun parsePath(path: String) {
 }
 
 // regex
-fun parsePathRegex(path:String){
+fun parsePathRegex(path: String) {
     val regex = """(.+)/(.+)\.(.+)""".toRegex()
     val matchResult = regex.matchEntire(path)
-    if(matchResult != null){
+    if (matchResult != null) {
         val (directory, filename, extension) = matchResult.destructured
         println("Dir: $directory, name: $filename, ext: $extension")
     }
@@ -49,12 +49,12 @@ fun parsePathRegex(path:String){
 /**
  * 5. 로컬 함수와 확장
  */
-class User(val id: Int, val name:String, val address:String)
+class User(val id: Int, val name: String, val address: String)
 
 // 로컬 함수
-fun saveUser01(user:User){
-    fun validate01(value:String, fieldName: String){
-        if(value.isEmpty()){
+fun saveUser01(user: User) {
+    fun validate01(value: String, fieldName: String) {
+        if (value.isEmpty()) {
             throw IllegalArgumentException(
                 "Can`t save user ${user.id} :" + "empty $fieldName"
             )
@@ -66,9 +66,9 @@ fun saveUser01(user:User){
 }
 
 // 로컬 함수 + 확장 함수
-fun User.validateBeforeSave(){
-    fun validate02(value:String, fieldName:String){
-        if(value.isEmpty()){
+fun User.validateBeforeSave() {
+    fun validate02(value: String, fieldName: String) {
+        if (value.isEmpty()) {
             throw IllegalArgumentException("Can`t save user $id : empty $fieldName") // 여기서의 id 는 수신객체(User) 의 id
         }
     }
@@ -78,7 +78,7 @@ fun User.validateBeforeSave(){
 
 }
 
-fun saveUser02(user:User){
+fun saveUser02(user: User) {
     user.validateBeforeSave();
 }
 
@@ -90,15 +90,13 @@ fun main() {
 
     //====== String 확장 함수 ======//
 //    val testStr = "/Users/yole/kotlin-book/chapter.adoc"
-//    parsePath(testStr)
+//    parsePathRegex(testStr)
 
     //====== 3 quotes String ====//
-//    val kotlinLogo = """|   //
-//                       .| //
-//                       .|/ \""".trimMargin(".")
-//    println(kotlinLogo)
-
-
+    val kotlinLogo = """|   //
+                       .| //
+                       .|/ \""".trimMargin(".")
+    println(kotlinLogo)
 
 
 }

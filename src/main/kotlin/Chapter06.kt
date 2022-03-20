@@ -22,15 +22,15 @@ fun printAllCaps(s: String?) {
  * - kotlin 에서는 return, throw 등의 연산도 식이다. 따라서 엘비스 우항에 return,throw 을 넣을 수 있다.
  */
 
-fun strLenSafe(s: String ?): Int = s?.length ?: 0
+fun strLenSafe(s: String?): Int = s?.length ?: 0
 
-class Address01(val streetAddress:String, val zipCode:Int, val city:String, val country:String)
-class Company01(val name:String, val address:Address01?)
-class Persons01(val name:String, val company:Company01?)
+class Address01(val streetAddress: String, val zipCode: Int, val city: String, val country: String)
+class Company01(val name: String, val address: Address01?)
+class Persons01(val name: String, val company: Company01?)
 
-fun printShippingLabel(person:Persons01){
+fun printShippingLabel(person: Persons01) {
     val address = person.company?.address ?: throw IllegalArgumentException("NO ADDRESS")
-    with(address){
+    with(address) {
         println(streetAddress)
         println("$zipCode $city, $country")
     }
@@ -40,14 +40,15 @@ fun printShippingLabel(person:Persons01){
  * safe cast (as?)
  * : 타입 캐스트 연산자는 값을 주어진 타입으로 변환하려 시도하고 타입이 맞지 않으면 null 을 반환한다
  */
-class SafeCastPerson(val firstName:String, val lastName:String){
+class SafeCastPerson(val firstName: String, val lastName: String) {
 
     override fun equals(other: Any?): Boolean {
         // 타입이 서로 일치하지 않으면 false 를 반환한다
         val otherPerson = other as? Person01 ?: return false
         return otherPerson.name == firstName
     }
-    override fun hashCode(): Int = firstName.hashCode()*27 + lastName.hashCode()
+
+    override fun hashCode(): Int = firstName.hashCode() * 27 + lastName.hashCode()
 }
 
 /**
@@ -55,7 +56,7 @@ class SafeCastPerson(val firstName:String, val lastName:String){
  * - null 이 아님을 단언하는 것이다
  * - 최대한 다른 방법을 찾아서 해결하는 것을 권장
  */
-fun ignoreNulls(s:String?){
+fun ignoreNulls(s: String?) {
     // s 가 null 이면 NullPointerException 이 발생.
     // 발생한 예외는 null 값을 사용하는 코드가 아니라 단언문이 위치한 곳을 가르킨다.
     val sNotNull: String = s!!
@@ -67,20 +68,21 @@ fun ignoreNulls(s:String?){
  * - 자신의 수신 객체를 인자로 전달받은 람다에게 넘긴다.
  * - let 을 사용하는 가장 흔한 용례는 null이 될 수 있는 값을 null이 아닌 값만 인자로 받는 함수에 넘기는 경우이다.
  */
-fun sendEmailsTo(email:String){
+fun sendEmailsTo(email: String) {
     println("Sending email to $email")
 }
+
 var email: String? = "jgg0328@gmail.com"
 
 /**
  * lateinit ( 나중에 초기화할 프로퍼티 )
  * - 객체 인스턴스를 일단 생성한 다음에 나중에 초기화하는 프레임워크들을 위한 기능
  */
-class MyServiceLateInit{
+class MyServiceLateInit {
     fun performAction(): String = "foo"
 }
 
-class MyTest03{
+class MyTest03 {
 
 //    1.lateinit 을 사용하지 않는 경우
 //    private var myServiceLateInit:MyServiceLateInit? = null **** 핵심 포인트 <- null setting ****
@@ -107,8 +109,8 @@ class MyTest03{
  * - null이 될 수 있는 타입의 확장 함수는 안전한 호출 없이도 호출 가능하다. ex) input.isNullOrBlank() -> "?." 를 사용하지 않음
  */
 
-fun verifyUserInput(input:String?){
-    if(input.isNullOrBlank()){ // 안전한 호출을 하지 않아도 된다
+fun verifyUserInput(input: String?) {
+    if (input.isNullOrBlank()) { // 안전한 호출을 하지 않아도 된다
         println("Please fill in the required fields")
     }
 }
@@ -117,7 +119,7 @@ fun verifyUserInput(input:String?){
 
 // java 에서는 메소드 안의 this는 그 메소드가 호출된 수신 객체를 가리키므로 항상 null이 아니다.
 // kotlin 에서는 널이 될 수 있는 타입의 확장 함수 안에서는 this가 null이 될 수 있다는 점이 자바와 다르다.
-fun String?.isNullOrBlanks():Boolean =
+fun String?.isNullOrBlanks(): Boolean =
     this == null || this.isBlank()
 
 
@@ -125,7 +127,7 @@ fun String?.isNullOrBlanks():Boolean =
  * 타입 파라미터의 null 가능성
  * - 타입 파라미터 T를 클래스나 함수 안에서 타입 이름으로 사용하면 이름 끝에 물음표가 없더라도 T가 null이 될 수 있는 타입이다.
  */
-fun <T> printHashCode(t:T){
+fun <T> printHashCode(t: T) {
     println(t?.hashCode()) // t는 null 이 될 수 있으므로 안전한 호출(safe operator)를 사용해야만 한다
 }
 
@@ -157,8 +159,19 @@ fun <T> printHashCode(t:T){
 // - kotlin 에서는 아래 2가지 구현 모두 가능
 // - override fun process(value:String){...}  // override fun process(value:String?){ if(value!=null)...}
 
+/**
+ * 원시 타입
+ *
+ * - kotlin 은 원시타입과 래퍼타입을 구분하지 않는다
+ * - 상황에 맞게 int, Int 로 컴파일 된다.
+ *
+ * [example]
+ * - Int, Boolean, Long ... & Int?, Boolean?, Long?
+ * - Any,Any? -> Object
+ * - Unit, Nothing
+ */
 
-fun main(){
+fun main() {
 
     //====== let ======//
     email?.let { sendEmailsTo(it) }
